@@ -18,8 +18,10 @@ module.exports = {
             const allFollowers = await getUserFollowersFromGithub(username)
             const allFollowing = await getUserFollowingFromGithub(username)
 
-            const isFollowed = allFollowers.filter(follower => allFollowing.includes(follower))
-            const isNotFollowed = allFollowers.filter(follower => !allFollowing.includes(follower))
+            const allFollowingArrayNames = allFollowing.map(element => element.login)
+
+            const isFollowed = allFollowers.filter(follower => allFollowingArrayNames.includes(follower.login))
+            const isNotFollowed = allFollowers.filter(follower => !allFollowingArrayNames.includes(follower.login))
 
             res.json({ isFollowed, isNotFollowed })
         } catch (error) {
